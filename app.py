@@ -7,7 +7,7 @@ from copilot import history
 from copilot.voice import transcribe
 
 # Set to False when you deploy the app publicly, so visitors never share a history file.
-PERSIST_HISTORY = True
+PERSIST_HISTORY = False
 
 st.set_page_config(page_title="HR BI Copilot", page_icon="📊", layout="wide")
 
@@ -130,11 +130,12 @@ def set_pending(text):
 def give_feedback(chat_id, idx, value):
     chat = st.session_state["chats"][chat_id]
     msg = chat["messages"][idx]
+
+    # Store feedback only in the current Streamlit session.
     msg["feedback"] = value
-    question = chat["messages"][idx - 1]["content"] if idx > 0 else ""
-    with open("feedback.log", "a", encoding="utf-8") as f:
-        f.write(f"{value}\t{question}\t{msg['sql']}\n")
-    persist()
+
+    # Do not write questions or SQL to a shared log file.
+
 
 
 # ----------------------------------------------------------------- sidebar
