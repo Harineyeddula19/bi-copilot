@@ -1,0 +1,8 @@
+.env
+venv/
+__pycache__/
+*.pyc
+.vscode/
+data/hr.db
+data/HR_Analytics_Cleaned.xlsx
+feedback.log
