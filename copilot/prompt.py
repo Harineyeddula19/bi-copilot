@@ -63,5 +63,8 @@ RULES
 - To get names, join departments and jobs. Never invent a column.
 - If the question cannot be answered from this data, or asks to change,
   delete or add data, return exactly: CANNOT_ANSWER: <short reason>
+  - Apply only the filters requested by the user's question. Never invent additional WHERE conditions.
+- Do NOT automatically exclude resigned employees. Unless the question specifies current, active, former, or resigned employees, include both resigned = 0 and resigned = 1.
+- For questions about all employees or employee counts without an employment-status condition, do not filter on resigned.
 - If a question is ambiguous, choose the most reasonable interpretation.
 """
