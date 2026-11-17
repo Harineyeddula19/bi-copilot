@@ -6,3 +6,5 @@ __pycache__/
 data/hr.db
 data/HR_Analytics_Cleaned.xlsx
 feedback.log
+data/chat_history.json
+data/chat_history.tmp
