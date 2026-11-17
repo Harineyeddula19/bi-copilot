@@ -2,6 +2,7 @@ import streamlit as st
 import plotly.express as px
 
 from copilot.pipeline import ask
+from copilot.insights import generate_insight
 from copilot import history
 from copilot.voice import transcribe
 
@@ -240,6 +241,19 @@ def render_answer(chat_id, idx, m):
         if m["total_rows"] > len(df):
             st.caption(f"Showing the first {len(df)} of {m['total_rows']} rows.")
         make_chart(df, key=f"chart_{chat_id}_{idx}")
+                # Generate a business insight from the actual SQL results
+        chat = st.session_state["chats"][chat_id]
+
+        question = (
+            chat["messages"][idx - 1]["content"]
+            if idx > 0
+            else ""
+        )
+
+        insight = generate_insight(question, df)
+
+        if insight:
+            st.info("💡 Business Insight: " + insight)
     with st.expander("Show generated SQL"):
         st.code(m["sql"], language="sql")
 
